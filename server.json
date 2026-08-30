@@ -1,0 +1,12 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.g-lab-studio/g-guest",
+  "description": "Book a table, appointment or class place at a real local business. Live availability, instant confirmation, no API key.",
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://g-guest.app/api/mcp"
+    }
+  ]
+}

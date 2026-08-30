@@ -1,0 +1,127 @@
+[
+  {
+    "name": "search",
+    "description": "Search bookable businesses on G-Guest by name or slug. Returns ids you can pass to fetch or to the booking tools.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "fetch",
+    "description": "Fetch full details for one business id returned by search: services, hours, timezone and how to book it.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_business",
+    "description": "Look up a business on G-Guest: services, opening hours, timezone and maximum party size. Call this first if you only know the slug.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "Business identifier, e.g. \"demo\"."
+        }
+      },
+      "required": [
+        "slug"
+      ]
+    }
+  },
+  {
+    "name": "check_availability",
+    "description": "List bookable time slots for a business on a given date and party size. Offer the guest only slots where available is true.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "description": "YYYY-MM-DD, in the venue's local calendar."
+        },
+        "party_size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "slug",
+        "date",
+        "party_size"
+      ]
+    }
+  },
+  {
+    "name": "create_booking",
+    "description": "Create a real reservation. Use a start value returned by check_availability. Never invent guest details — ask the person for their real name, email and phone first. If the result status is pending_confirmation, show the guest the confirmation_url.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string",
+          "description": "start_utc exactly as returned by check_availability."
+        },
+        "party_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "idempotency_key": {
+          "type": "string",
+          "description": "Retry safety: pick any unique string for this booking attempt and reuse it on retries — the same key always returns the same booking, never a duplicate."
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "chatgpt",
+            "hermes",
+            "other_ai",
+            "proof_video"
+          ],
+          "description": "Which assistant is booking. Defaults to other_ai. proof_video is our own channel: bookings made while filming a proof clip."
+        }
+      },
+      "required": [
+        "slug",
+        "start",
+        "party_size",
+        "name",
+        "email",
+        "phone"
+      ]
+    }
+  }
+]
