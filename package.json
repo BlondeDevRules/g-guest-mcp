@@ -1,0 +1,46 @@
+{
+  "name": "g-guest-mcp",
+  "version": "1.0.0",
+  "description": "Local stdio MCP server for G-Guest: book a table, appointment or class place at a real local business. Proxies to the hosted G-Guest endpoint. No account, no API key.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "g-guest-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "tools.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "booking",
+    "reservations",
+    "restaurants",
+    "salons",
+    "local-business",
+    "g-guest"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlondeDevRules/g-guest-mcp.git"
+  },
+  "homepage": "https://g-guest.app",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
